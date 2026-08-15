@@ -1,72 +1,309 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
-
-<!-- #BeginTemplate "../master.dwt" -->
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- #BeginEditable "doctitle" -->
-<title>Contact</title>
-<script type="text/javascript">
-<!--
-function FP_goToURL(url) {//v1.0
- window.location=url;
-}
-// -->
-</script>
-<!-- #EndEditable -->
-<link href="../styles/style2.css" rel="stylesheet" type="text/css" />
-</head>
+<title>Contact — 12th-Green</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --green-deep:   #1B3A2D;
+    --green-mid:    #2C5440;
+    --green-light:  #3D7057;
+    --sand:         #C9A84C;
+    --sand-light:   #E8D08A;
+    --cream:        #F5F0E8;
+    --white:        #FFFFFF;
+    --text-dark:    #1A1A1A;
+    --text-mid:     #4A4A4A;
+    --text-light:   #7A7A7A;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── NAVIGATION ─────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(27, 58, 45, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--sand);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0.25rem;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0.5rem 0.85rem;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--sand-light);
+    background: rgba(201, 168, 76, 0.12);
+  }
+
+  /* ── PAGE HEADER ────────────────────────────────────────── */
+  .page-header {
+    background: var(--green-deep);
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,0.012) 3px,
+      rgba(255,255,255,0.012) 4px
+    );
+    pointer-events: none;
+  }
+
+  .page-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  /* ── CONTACT SECTION ────────────────────────────────────── */
+  .contact-section {
+    flex: 1;
+    padding: 5rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .contact-intro {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 560px) {
+    .contact-cards { grid-template-columns: 1fr; }
+  }
+
+  .contact-card {
+    background: var(--white);
+    border-radius: 6px;
+    border: 1px solid rgba(27,58,45,0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(27,58,45,0.1);
+  }
+
+  .contact-card-accent {
+    height: 4px;
+    width: 40px;
+    background: linear-gradient(90deg, var(--green-mid), var(--sand));
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--green-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--sand);
+    margin-bottom: 1rem;
+  }
+
+  .contact-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-btn {
+    display: inline-block;
+    padding: 0.7rem 1.75rem;
+    background: var(--green-deep);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .contact-btn:hover {
+    background: var(--green-mid);
+    transform: translateY(-1px);
+  }
+
+  /* ── FOOTER ─────────────────────────────────────────────── */
+  footer {
+    background: var(--green-deep);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 2rem;
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .footer-copy a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-copy a:hover { color: var(--sand-light); }
+</style>
+</head>
 <body>
 
-<!-- Begin Container -->
-<div id="container">
-	<!-- Begin Masthead -->
-	<div id="masthead">
-		<h1><em>12TH-GREEN.COM</em></h1>
-	</div>
-	<!-- End Masthead -->
-	<!-- Begin Navigation -->
-	<div id="navigation">
-		<ul>
-			<li><a href="../default.html">Home</a></li>
-			<li><a href="contact.htm">Contact</a></li>
-			<li></li>
-		</ul>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-	</div>
-	<!-- End Navigation -->
-	<!-- Begin Content -->
-	<div id="content">
-		<!-- #BeginEditable "content" -->
-		<h2>Contact</h2>
-		<p onclick="FP_goToURL(/*href*/'mailto:rbunt@12th-green.com')">
-		<a href="file:///">Richard</a></p>
-		<p onclick="FP_goToURL(/*href*/'mailto:lucinda@12th-green.com')">
-		<a href="file:///">Lucinda</a></p>
-		<!-- #EndEditable "content" --></div>
-	<!-- End Content -->
-	<!-- Begin Footer -->
-	<div id="footer">
-		<p><a href="../default.html">Home</a> | <a href="contact.htm">Contact</a></p>
-	</div>
-	<!-- End Footer --></div>
-<!-- End Container -->
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">12th-Green</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="contact.htm" class="active">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <p class="page-eyebrow">Reach Out</p>
+  <h1 class="page-title">Contact</h1>
+</div>
+
+<!-- CONTACT CARDS -->
+<div class="contact-section">
+  <p class="contact-intro">Have a question or just want to get in touch? Send us an email and we'll get back to you.</p>
+  <div class="contact-cards">
+
+    <div class="contact-card">
+      <div class="contact-card-accent"></div>
+      <div class="contact-avatar">R</div>
+      <div class="contact-name">Richard</div>
+      <a href="mailto:rbunt@12th-green.com" class="contact-btn">Send Email</a>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-card-accent"></div>
+      <div class="contact-avatar">L</div>
+      <div class="contact-name">Lucinda</div>
+      <a href="mailto:lucinda@12th-green.com" class="contact-btn">Send Email</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 12th-Green.com &mdash; All rights reserved.</span>
+    <span class="footer-copy">
+      <a href="../index.html">Home</a> &nbsp;|&nbsp;
+      <a href="contact.htm">Contact</a>
+    </span>
+  </div>
+</footer>
 
 </body>
-
-<!-- #EndTemplate -->
-
 </html>
