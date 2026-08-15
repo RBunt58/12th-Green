@@ -1,5 +1,0 @@
-# robots.txt for http://www.12th-green.com
-# Prevent all
-
-User-agent: *
-Disallow: /
